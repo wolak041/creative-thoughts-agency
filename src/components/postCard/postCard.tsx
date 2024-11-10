@@ -1,4 +1,5 @@
 import { Post } from "@/domain/Post";
+import { getDate } from "@/helpers/date";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,22 +13,22 @@ const PostCard = ({ post }: PostCardProps) => {
             <div className="flex">
                 <div className="w-11/12 h-[400px] relative">
                     <Image
-                        src="https://images.pexels.com/photos/18936031/pexels-photo-18936031/free-photo-of-korean-bbq-restaurant.jpeg"
+                        src={post.img}
                         alt="Blog post cover"
                         fill
                         className="object-cover"
                     />
                 </div>
                 <span className="w-1/12 text-xs rotate-[270deg] m-auto">
-                    01.01.2024
+                    {getDate(post.date)}
                 </span>
             </div>
             <div>
                 <h1 className="text-2xl mb-5 w-11/12">{post.title}</h1>
                 <p className="mb-5 font-light text-gray-500 w-11/12">
-                    {post.body}
+                    {post.description}
                 </p>
-                <Link href={`/blog/${post.id}`} className="underline">
+                <Link href={`/blog/${post.slug}`} className="underline">
                     READ MORE
                 </Link>
             </div>
