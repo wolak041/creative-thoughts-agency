@@ -2,6 +2,7 @@ import BackButton from "@/components/backButton/backButton";
 import PostAuthor from "@/components/postAuthor/postAuthor";
 import { getDate } from "@/helpers/date";
 import { getPost } from "@/lib/posts";
+import { Metadata } from "next";
 import Image from "next/image";
 import { Suspense } from "react";
 
@@ -10,6 +11,17 @@ interface SinglePostPageProps {
         slug: string;
     };
 }
+
+export const generateMetadata = async ({
+    params,
+}: SinglePostPageProps): Promise<Metadata> => {
+    const post = await getPost(params.slug);
+
+    return {
+        title: post.title,
+        description: post.description,
+    };
+};
 
 const SinglePostPage = async ({ params }: SinglePostPageProps) => {
     const post = await getPost(params.slug);

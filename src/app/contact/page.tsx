@@ -1,4 +1,10 @@
+import { Metadata } from "next";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+    title: "Contact",
+    description: "Lama contact",
+};
 
 const inputStyles =
     "p-5 rounded-md border-none outline-none bg-soft text-white";
