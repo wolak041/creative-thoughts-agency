@@ -1,6 +1,19 @@
 import PostCard from "@/components/postCard/postCard";
-import { getPosts } from "@/lib/posts";
+import { Post } from "@/domain/Post";
+// import { getPosts } from "@/lib/posts";
 import { Metadata } from "next";
+
+const getData = async (): Promise<Post[]> => {
+    const res = await fetch("http://localhost:3000/api/blog", {
+        next: { revalidate: 3600 },
+    });
+
+    if (!res.ok) {
+        throw new Error("Something went wrong");
+    }
+
+    return res.json();
+};
 
 export const metadata: Metadata = {
     title: "Blog",
@@ -8,7 +21,8 @@ export const metadata: Metadata = {
 };
 
 const BlogPage = async () => {
-    const posts = await getPosts();
+    // const posts = await getPosts();
+    const posts = await getData();
 
     return (
         <div className="flex flex-wrap gap-5">

@@ -1,7 +1,8 @@
 import BackButton from "@/components/backButton/backButton";
 import PostAuthor from "@/components/postAuthor/postAuthor";
+import { Post } from "@/domain/Post";
 import { getDate } from "@/helpers/date";
-import { getPost } from "@/lib/posts";
+// import { getPost } from "@/lib/posts";
 import { Metadata } from "next";
 import Image from "next/image";
 import { Suspense } from "react";
@@ -12,10 +13,20 @@ interface SinglePostPageProps {
     };
 }
 
+const getData = async (slug: string): Promise<Post> => {
+    const res = await fetch(`http://localhost:3000/api/blog/${slug}`);
+
+    if (!res.ok) {
+        throw new Error("Something went wrong");
+    }
+
+    return res.json();
+};
+
 export const generateMetadata = async ({
     params,
 }: SinglePostPageProps): Promise<Metadata> => {
-    const post = await getPost(params.slug);
+    const post = await getData(params.slug);
 
     return {
         title: post.title,
@@ -24,7 +35,8 @@ export const generateMetadata = async ({
 };
 
 const SinglePostPage = async ({ params }: SinglePostPageProps) => {
-    const post = await getPost(params.slug);
+    // const post = await getPost(params.slug);
+    const post = await getData(params.slug);
 
     return (
         <div className="flex flex-col md:flex-row gap-12 md:gap-24">
