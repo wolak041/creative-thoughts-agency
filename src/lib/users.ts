@@ -7,7 +7,16 @@ export const getUser = async (username: string): Promise<User> => {
         connectToDb();
         const user = await UserModel.findOne({ username });
 
-        return user;
+        if (!user?.username || !user?.email || !user?.img || !user?.isAdmin) {
+            throw new Error("User not found");
+        }
+
+        return {
+            username: user.username,
+            email: user.email,
+            img: user.img,
+            isAdmin: user.isAdmin,
+        };
     } catch (error) {
         console.log(error);
 
