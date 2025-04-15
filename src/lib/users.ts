@@ -7,7 +7,7 @@ export const getUser = async (username: string): Promise<User> => {
         connectToDb();
         const user = await UserModel.findOne({ username });
 
-        if (!user?.username || !user?.email || !user?.img || !user?.isAdmin) {
+        if (!user?.username || !user?.email || !user?.img) {
             throw new Error("User not found");
         }
 
