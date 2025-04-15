@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const Home = () => {
     return (
@@ -14,12 +15,18 @@ const Home = () => {
                     accusantium dolore ab quas voluptatum necessitatibus.
                 </p>
                 <div className="flex gap-5">
-                    <button className="p-5 min-w-32 rounded-md bg-blue-500">
+                    <Link
+                        href="/about"
+                        className="p-5 min-w-32 rounded-md bg-blue-500 hover:bg-blue-600 text-center"
+                    >
                         Learn More
-                    </button>
-                    <button className="p-5 min-w-32 rounded-md bg-cyan-50 text-black">
+                    </Link>
+                    <Link
+                        href="/contact"
+                        className="p-5 min-w-32 rounded-md bg-cyan-50 hover:bg-cyan-100 text-black text-center"
+                    >
                         Contact
-                    </button>
+                    </Link>
                 </div>
                 <div className="relative w-[500px] h-[50px] grayscale">
                     <Image src="/brands.png" alt="Brands image" fill />
