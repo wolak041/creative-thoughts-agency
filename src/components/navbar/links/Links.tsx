@@ -12,12 +12,13 @@ interface LinksProps {
 const Links = ({ session }: LinksProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const isAdmin = true;
-
     return (
         <div>
             <div className="hidden lg:flex items-center gap-5">
-                <LinkElements user={session?.user} isAdmin={isAdmin} />
+                <LinkElements
+                    user={session?.user}
+                    isAdmin={!!session?.user.isAdmin}
+                />
             </div>
             <button
                 className="lg:hidden"
@@ -40,7 +41,7 @@ const Links = ({ session }: LinksProps) => {
                 <div className="absolute top-24 right-0 bottom-0 w-screen md:w-[50vw] flex lg:hidden flex-col items-center gap-5 bg-sky-900 p-6 z-20">
                     <LinkElements
                         user={session?.user}
-                        isAdmin={isAdmin}
+                        isAdmin={!!session?.user.isAdmin}
                         onClick={() => setIsOpen(false)}
                     />
                 </div>
