@@ -1,6 +1,5 @@
 import PostCard from "@/components/postCard/postCard";
 import { Post } from "@/domain/Post";
-// import { getPosts } from "@/lib/posts";
 import { Metadata } from "next";
 
 const getData = async (): Promise<Post[]> => {
@@ -21,7 +20,6 @@ export const metadata: Metadata = {
 };
 
 const BlogPage = async () => {
-    // const posts = await getPosts();
     const posts = await getData();
 
     return (

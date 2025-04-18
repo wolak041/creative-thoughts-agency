@@ -10,7 +10,6 @@ export const addPost = async (post: FormData) => {
     const title = post.get("title");
     const description = post.get("description");
     const img = post.get("img");
-    const date = post.get("date");
 
     try {
         connectToDb();
@@ -21,12 +20,13 @@ export const addPost = async (post: FormData) => {
             title,
             description,
             img,
-            date,
+            date: new Date(),
         });
 
         await newPost.save();
 
         revalidatePath("/blog");
+        revalidatePath("/admin");
     } catch (e) {
         console.log(e);
 
@@ -43,6 +43,7 @@ export const deletePost = async (post: FormData) => {
         await PostModel.findOneAndDelete({ slug });
 
         revalidatePath("/blog");
+        revalidatePath("/admin");
     } catch (e) {
         console.log(e);
 

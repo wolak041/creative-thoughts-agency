@@ -13,6 +13,7 @@ export const authConfig: NextAuthConfig = {
         async jwt({ token, user }) {
             if (user?.id) {
                 token.id = user.id;
+                token.username = user.username;
                 token.isAdmin = user.isAdmin;
             }
 
@@ -21,6 +22,7 @@ export const authConfig: NextAuthConfig = {
         async session({ session, token }) {
             if (token) {
                 session.user.id = token.id;
+                session.user.username = token.username;
                 session.user.isAdmin = token.isAdmin;
             }
 
