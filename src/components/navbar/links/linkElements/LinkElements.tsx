@@ -1,5 +1,5 @@
 import { handleLogout } from "@/lib/actions/logout";
-import NavLink from "../navLink/NavLink";
+import NavLink from "../navLink/navLink";
 import { User } from "next-auth";
 
 const links = [

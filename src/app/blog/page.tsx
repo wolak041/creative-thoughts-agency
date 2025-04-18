@@ -25,7 +25,7 @@ const BlogPage = async () => {
     const posts = await getData();
 
     return (
-        <div className="flex flex-wrap gap-5">
+        <div className="flex flex-wrap justify-between center gap-5">
             {posts.map((post) => (
                 <div className="w-[100%] md:w-[45%] xl:w-[30%]" key={post.slug}>
                     <PostCard post={post} />

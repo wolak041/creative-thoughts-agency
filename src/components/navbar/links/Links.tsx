@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import LinkElements from "./linkElements/LinkElements";
+import LinkElements from "./linkElements/linkElements";
 import Image from "next/image";
 import { Session } from "next-auth";
 

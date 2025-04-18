@@ -1,6 +1,4 @@
-interface FooterProps {}
-
-const Footer = ({}: FooterProps) => {
+const Footer = () => {
     return (
         <div className="flex justify-around items-center h-24 mt-4 text-gray-500 flex-col sm:flex-row sm:justify-between">
             <div className="text-sm font-bold">lamadev</div>
@@ -12,4 +10,4 @@ const Footer = ({}: FooterProps) => {
 };
 
 export default Footer;
-1
+1;
