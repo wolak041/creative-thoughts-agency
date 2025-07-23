@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import GitHub from "next-auth/providers/github";
-import Credentials, { CredentialInput } from "next-auth/providers/credentials";
+import Credentials from "next-auth/providers/credentials";
 import { connectToDb } from "./utils";
 import { UserModel } from "./models/userSchema";
 import bcrypt from "bcrypt";
