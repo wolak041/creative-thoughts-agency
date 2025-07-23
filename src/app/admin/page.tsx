@@ -4,9 +4,18 @@ import AdminUserForm from "@/components/adminUserForm/adminUserForm";
 import AdminUsers from "@/components/adminUsers/adminUsers";
 import { auth } from "@/lib/auth";
 import { Suspense } from "react";
+import { redirect } from "next/navigation";
 
 const AdminPage = async () => {
     const session = await auth();
+
+    if (!session || !session.user) {
+        redirect("/login");
+    }
+
+    if (!session.user.isAdmin) {
+        redirect("/");
+    }
 
     return (
         <div className="flex flex-col gap-36">
@@ -17,7 +26,7 @@ const AdminPage = async () => {
                     </Suspense>
                 </div>
                 <div className="md:flex-1">
-                    <AdminPostForm userId={session!.user.username} />
+                    <AdminPostForm userId={session.user.username} />
                 </div>
             </div>
             <div className="flex flex-col md:flex-row gap-10">
