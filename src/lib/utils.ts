@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { env } from "./env";
 
 const connection = {
     isConnected: false,
@@ -12,7 +13,7 @@ export const connectToDb = async () => {
         try {
             const {
                 connection: { readyState },
-            } = await mongoose.connect(process.env.MONGO ?? "");
+            } = await mongoose.connect(env.MONGO ?? "");
 
             connection.isConnected = readyState === 1 || readyState === 2;
         } catch (error) {

@@ -5,6 +5,7 @@ import { connectToDb } from "./utils";
 import { UserModel } from "./models/userSchema";
 import bcrypt from "bcrypt";
 import { authConfig } from "./auth.config";
+import { env } from "./env";
 
 export const {
     handlers: { GET, POST },
@@ -14,8 +15,8 @@ export const {
 } = NextAuth({
     providers: [
         GitHub({
-            clientId: process.env.GITHUB_ID,
-            clientSecret: process.env.GITHUB_SECRET,
+            clientId: env.GITHUB_ID,
+            clientSecret: env.GITHUB_SECRET,
         }),
         Credentials({
             name: "Credentials",

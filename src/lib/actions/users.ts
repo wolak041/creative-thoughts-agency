@@ -6,6 +6,7 @@ import { connectToDb } from "../utils";
 import { revalidatePath } from "next/cache";
 import { auth } from "../auth";
 import bcrypt from "bcrypt";
+import { env } from "../env";
 
 export const addUser = async (post: FormData) => {
     const session = await auth();
@@ -43,9 +44,8 @@ export const addUser = async (post: FormData) => {
             throw new Error("Username or email already exists");
         }
 
-        // Hash the password using environment variable for salt rounds
-        const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS || "10");
-        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        const salt = await bcrypt.genSalt(env.BCRYPT_SALT_ROUNDS);
+        const hashedPassword = await bcrypt.hash(password, salt);
 
         const newUser = new UserModel({
             username,

@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { UserModel } from "../models/userSchema";
 import { connectToDb } from "../utils";
 import bcrypt from "bcrypt";
+import { env } from "../env";
 
 export interface RegisterResponse {
     isSuccess: boolean;
@@ -37,7 +38,7 @@ export const register = async (
             throw new Error("Username or email already exists");
         }
 
-        const salt = await bcrypt.genSalt();
+        const salt = await bcrypt.genSalt(env.BCRYPT_SALT_ROUNDS);
         const hashedPassword = await bcrypt.hash(password, salt);
 
         const newUser = new UserModel({
