@@ -10,6 +10,11 @@ export const authConfig: NextAuthConfig = {
     },
     providers: [],
     callbacks: {
+        async redirect({ url, baseUrl }) {
+            if (url.startsWith("/")) return `${baseUrl}${url}`;
+            else if (new URL(url).origin === baseUrl) return url;
+            return baseUrl;
+        },
         async jwt({ token, user }) {
             if (user?.id) {
                 token.id = user.id;
@@ -29,17 +34,25 @@ export const authConfig: NextAuthConfig = {
             return session;
         },
         authorized({ auth, request }) {
+            const { pathname } = request.nextUrl;
             const user = auth?.user;
-            const isOnAdminPanel =
-                request.nextUrl.pathname.startsWith("/admin");
-            const isOnLoginPage = request.nextUrl.pathname.startsWith("/login");
-            const isOnRegisterPage =
-                request.nextUrl.pathname.startsWith("/register");
+            const isAuthenticated = !!user;
+            const isAdmin = user?.isAdmin;
 
-            if (isOnAdminPanel && !user?.isAdmin) {
-                return false;
+            const isAdminRoute = pathname.startsWith("/admin");
+            const isAuthRoute = pathname.startsWith("/login") || pathname.startsWith("/register");
+
+            if (isAdminRoute) {
+                if (!isAuthenticated) {
+                    return Response.redirect(new URL("/login", request.nextUrl));
+                }
+                if (!isAdmin) {
+                    return Response.redirect(new URL("/", request.nextUrl));
+                }
+                return true;
             }
-            if ((isOnLoginPage || isOnRegisterPage) && user) {
+
+            if (isAuthRoute && isAuthenticated) {
                 return Response.redirect(new URL("/", request.nextUrl));
             }
 

@@ -14,7 +14,11 @@ export const handleLogin = async (
     try {
         const { email, password } = Object.fromEntries(formData);
 
-        await signIn("credentials", { email, password });
+        await signIn("credentials", { 
+            email, 
+            password,
+            redirectTo: "/"
+        });
 
         return {
             isSuccess: true,
@@ -37,5 +41,5 @@ export const handleLogin = async (
 };
 
 export const handleGithubLogin = async () => {
-    await signIn("github");
+    await signIn("github", { redirectTo: "/" });
 };
