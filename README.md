@@ -37,7 +37,7 @@ A modern blog application built with Next.js 14, featuring user authentication, 
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/wolak041/creative-thoughts-agency.git
    cd creative-thoughts-agency
    ```
 
